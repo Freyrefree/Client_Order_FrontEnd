@@ -9,8 +9,11 @@ import { Regiones, ApiResponseRegiones, TiposOrden, ApiResponseTiposOrden } from
 export class DataComponentesService {
 
 
-  public urlApiRegiones = "https://localhost:44373/api/Regiones";
-  public urlApiTiposOrden = "https://localhost:44373/api/TiposOrden";
+  // public urlApiRegiones = "https://localhost:44373/api/Regiones";
+  // public urlApiTiposOrden = "https://localhost:44373/api/TiposOrden";
+
+  public urlApiRegiones = "http://192.168.1.21:9004/api/Regiones";
+  public urlApiTiposOrden = "http://192.168.1.21:9004/api/TiposOrden";
 
 
   constructor(private http: HttpClient) { }
