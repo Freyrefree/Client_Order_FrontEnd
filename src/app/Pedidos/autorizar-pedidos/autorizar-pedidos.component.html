@@ -45,9 +45,9 @@
                     <button class="btn btn-info btn-sm" (click)="detallePedido(pedido.id, 'Región: ' +pedido.region+ ' - Orden de Compra: ' + pedido.ordenCompra)">
                       <i class="bi bi-list-task"></i>
                     </button>
-                    <button class="btn btn-success btn-sm" (click)="confirmarPedido(pedido.id)">
+                    <!-- <button class="btn btn-success btn-sm" (click)="confirmarPedido(pedido.id)">
                       <i class="bi bi-bookmark-check-fill"></i>
-                    </button>
+                    </button> -->
                   </td>
                 </tr>
               </tbody>
@@ -77,7 +77,7 @@
                   <th scope="col">Empaque</th>
                   <th scope="col">Cantidad Pall</th>
                   <th scope="col">Cajas</th>
-                  <th scope="col" class="columna-calculada">Cantidad Pedido</th>
+                  <!-- <th scope="col" class="columna-calculada">Cantidad Pedido</th> -->
                   <th scope="col">Total Costo</th>
                 </tr>
               </thead>
@@ -90,13 +90,15 @@
                   <td>{{ detalle.empaqueCliente }}</td>
                   <td>{{ detalle.cantidadCliente }}</td>
                   <td>{{ detalle.totalCajasCliente }}</td>
-                  <td class="columna-calculada">Falta Normas Empaque FL y PT</td>
+                  <!-- <td class="columna-calculada">Falta Normas Empaque FL y PT</td> -->
                   <td>{{ detalle.totalCostoCliente | currency }}</td>
                 </tr>
 
                 <!-- Fila para mostrar la suma de totalCostoCliente -->
                 <tr class="table-total">
-                  <td colspan="7" class="text-end"><strong>Total:</strong></td>
+                  <!-- <td colspan="7" class="text-end"><strong>Total:</strong></td> -->
+                  <td colspan="6" class="text-end"><strong>Total:</strong></td>
+
                   <td><strong>{{ sumaTotalCosto | currency }}</strong></td>
                 </tr>
               </tbody>

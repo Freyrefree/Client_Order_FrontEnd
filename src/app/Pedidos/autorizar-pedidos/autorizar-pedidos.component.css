@@ -158,14 +158,15 @@ textarea::placeholder, input::placeholder {
   width: 100%;
 }
 
-.table-pedidos th, 
 .table-pedidos td {
-  padding: 3px;
+  padding: 2px;
   text-align: center;
   white-space: nowrap; /* Evita que los textos largos se dividan en varias líneas */
 }
 
 .table-pedidos th {
+  padding: 2px;
+  text-align: center;
   background-color: #11577c;
   color: white;
 }
@@ -186,7 +187,7 @@ textarea::placeholder, input::placeholder {
   border: 1px solid #09b93e; /* Borde */
 }
 
-
+/* // *********************************************************** */
 .sticky-div {
   position: sticky;
   top: 20px; /* o el espacio que quieras desde la parte superior */
