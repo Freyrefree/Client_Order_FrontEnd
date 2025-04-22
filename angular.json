@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "TaskInvoice": {
+    "ClientOrder": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "TaskInvoice:build:production"
+              "browserTarget": "ClientOrder:build:production"
             },
             "development": {
-              "browserTarget": "TaskInvoice:build:development"
+              "browserTarget": "ClientOrder:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "TaskInvoice:build"
+            "browserTarget": "ClientOrder:build"
           }
         },
         "test": {
