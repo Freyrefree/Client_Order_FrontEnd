@@ -1,0 +1,54 @@
+<div class="d-flex">
+    <!-- Sidebar -->
+    <nav
+      class="sidebar vh-100 p-3 border-end custom-sidebar"
+      [ngClass]="{ 'collapsed': isCollapsed }"
+    >
+      <div class="d-flex justify-content-between align-items-center">
+        <h5 class="mb-3">Menú</h5>
+        <button class="btn btn-outline-light btn-sm" (click)="toggleSidebar()">
+          <i class="bi bi-list"></i>
+        </button>
+      </div>
+      <ul class="nav flex-column">
+        <li *ngFor="let modulo of modulos" class="nav-item">
+          <a class="nav-link" [routerLink]="modulo.ruta" routerLinkActive="active">
+            <i class="bi" [ngClass]="modulo.icono ? 'bi ' + modulo.icono : ''"></i> 
+            {{ modulo.modulo }}
+          </a>
+        </li>
+      </ul>
+      
+    </nav>
+  
+    <!-- Main Content -->
+    <div class="content flex-grow-1" [ngClass]="{ 'full-width': isCollapsed }">
+      <header class="navbar navbar-expand-lg navbar-light bg-light px-4 border-bottom">
+        <button *ngIf="isCollapsed" class="btn btn-outline-primary" (click)="toggleSidebar()">
+          <i class="bi bi-list"></i>
+        </button>
+        <div class="navbar-brand ms-3">Client Order</div>
+        <ul class="navbar-nav ms-auto">
+
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+              <img [src]="userImageSrc" alt="user" width="31" class="rounded-circle">
+              <span class="ms-2">{{ nombreUsuario }}</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="#" (click)="cerrarSesion()">Cerrar sesión</a></li>
+            </ul>
+          </li>
+
+        </ul>
+      </header>
+  
+      <main class="p-4">
+        <router-outlet></router-outlet>
+      </main>
+    </div>
+  </div>
+  

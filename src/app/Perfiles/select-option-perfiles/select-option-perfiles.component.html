@@ -1,0 +1,15 @@
+<select 
+  class="form-select form-select-sm"
+  [ngClass]="{ 'select-sin-perfil': selectedValue === 0 }"
+  [value]="selectedValue || 0"
+  (change)="onSelectionChange($event)">
+  <option value="0" [selected]="!selectedValue">Sin perfil</option>
+  <option *ngFor="let option of options" [value]="option.value" [selected]="option.value === selectedValue">
+    {{ option.label }}
+  </option>
+</select>
+
+
+
+
+  

@@ -1,0 +1,74 @@
+/* Tarjetas */
+.custom-card {
+    background-color: #10446b; /* Fondo azul oscuro */
+    color: #cfdae2; /* Texto claro */
+    font-weight: bold; /* Negritas */
+    font-size: 1.25rem; /* Tamaño de texto más grande */
+    border-radius: 5px; /* Bordes redondeados */
+  }
+
+  /* Input general */
+input {
+  background-color: #f0f8ff;
+  border: 2px solid #10446b;
+  padding: 8px;
+  border-radius: 6px;
+  font-weight: bold;
+  color: #10446b;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Enfocado */
+input:focus {
+  outline: none;
+  border-color: #afda6e;
+  box-shadow: 0 0 8px rgba(175, 218, 110, 0.6);
+}
+
+/* Placeholder */
+input::placeholder {
+  color: #a4b5c4;
+}
+
+/* Hover */
+input:hover {
+  background-color: #e6f3ff;
+  cursor: pointer;
+}
+
+/* Select */
+select {
+  background-color: #f0f8ff;
+  border: 2px solid #10446b;
+  padding: 8px;
+  border-radius: 6px;
+  font-weight: bold;
+  color: #10446b;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* Select al enfocar */
+select:focus {
+  outline: none;
+  border-color: #afda6e;
+  box-shadow: 0 0 8px rgba(175, 218, 110, 0.6);
+}
+
+/* Select al pasar el mouse */
+select:hover {
+  background-color: #e6f3ff;
+}
+
+/* Opciones del select */
+option {
+  font-weight: bold;
+  background-color: #ffffff;
+  color: #10446b;
+}
+
+/* Opciones al pasar el mouse (puede no funcionar en todos los navegadores) */
+option:hover {
+  background-color: #afda6e;
+}

@@ -1,0 +1,24 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+/* Mensaje de éxito */
+.success-snackbar {
+    --mdc-snackbar-container-color: #28a745 !important; /* Verde éxito */
+    --mdc-snackbar-supporting-text-color: #ffffff !important; /* Texto en blanco */
+    --mat-snack-bar-button-color: #afda6e !important; /* Color del botón */
+  }
+  
+  /* Mensaje de error */
+  .error-snackbar {
+    --mdc-snackbar-container-color: #dc3545 !important; /* Rojo error */
+    --mdc-snackbar-supporting-text-color: #ffffff !important; /* Texto en blanco */
+    --mat-snack-bar-button-color: #cfdae2 !important; /* Color del botón */
+  }
+
+
+
+  
+  

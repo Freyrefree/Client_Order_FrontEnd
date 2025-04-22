@@ -1,0 +1,196 @@
+
+/* Tipografía y colores generales */
+body, input, select, option, .form-label, .dropdown-item {
+  font-family: 'Arial', sans-serif; /* Fuente estándar */
+  font-size: 1rem; /* Tamaño uniforme */
+  color: #10446b; /* Texto azul oscuro */
+  font-weight: bold; /* Negritas */
+}
+
+/* Estilo para etiquetas (label) */
+.form-label {
+  color: #10446b; /* Texto azul oscuro */
+  font-weight: bold; /* Negritas */
+}
+
+/* Botones */
+.btn-primary {
+  background-color: #10446b; /* Fondo azul oscuro */
+  border-color: #10446b; /* Borde azul oscuro */
+  color: #ffffff; /* Texto blanco */
+}
+
+.btn-primary:hover {
+  background-color: #11577c; /* Fondo más oscuro en hover */
+  border-color: #11577c; /* Borde más oscuro */
+}
+
+.btn-danger {
+  background-color: #dc3545; /* Fondo rojo */
+  border-color: #dc3545; /* Borde rojo */
+  color: #ffffff; /* Texto blanco */
+}
+
+.btn-danger:hover {
+  background-color: #b52a37; /* Fondo más oscuro en hover */
+  border-color: #b52a37; /* Borde más oscuro */
+}
+
+/* Tarjetas */
+.custom-card {
+  background-color: #10446b; /* Fondo azul oscuro */
+  color: #cfdae2; /* Texto claro */
+  font-weight: bold; /* Negritas */
+  font-size: 1.25rem; /* Tamaño de texto más grande */
+  border-radius: 5px; /* Bordes redondeados */
+}
+
+/* Grupo de entrada */
+.input-group {
+  margin-bottom: 1rem;
+}
+
+/* Listas */
+.list-group-item {
+  background-color: #f8f9fa; /* Fondo claro */
+  color: #10446b; /* Texto azul oscuro */
+}
+
+.list-group-item:hover {
+  background-color: #e9ecef; /* Fondo más claro en hover */
+}
+
+/* Opciones del select */
+option {
+  background-color: #f8f9fa; /* Fondo claro */
+  color: #10446b; /* Texto azul oscuro */
+  padding: 0.5rem; /* Espaciado interno */
+}
+
+option:hover {
+  background-color: #e9ecef; /* Fondo más claro en hover */
+  color: #11577c; /* Texto más oscuro */
+}
+
+/* Menús desplegables */
+.dropdown-menu {
+  max-height: 200px; /* Altura máxima */
+  overflow-y: auto; /* Scroll si es necesario */
+  background-color: #f8f9fa; /* Fondo claro */
+  border: 1px solid #10446b; /* Borde azul oscuro */
+  border-radius: 5px; /* Bordes redondeados */
+}
+
+.dropdown-item {
+  padding: 0.5rem; /* Espaciado interno */
+  background-color: transparent; /* Fondo transparente por defecto */
+  transition: all 0.3s ease; /* Transición suave */
+}
+
+.dropdown-item:hover {
+  background-color: #11577c; /* Fondo azul oscuro */
+  color: #ffffff; /* Texto blanco */
+}
+
+/* Elementos ocultos */
+.d-none {
+  display: none !important;
+}
+
+/* Personalización adicional */
+textarea::placeholder, input::placeholder {
+  color: #a4b5c4; /* Placeholder tenue */
+}
+
+/* Contenedor de checkboxes */
+.form-check {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem; /* Separación entre cada checkbox */
+}
+
+/* Checkbox */
+.form-check-input {
+  width: 1.2rem; /* Tamaño más grande */
+  height: 1.2rem; /* Tamaño más grande */
+  margin-right: 0.5rem; /* Espaciado entre el checkbox y el label */
+  accent-color: #10446b; /* Color azul oscuro para el checkbox */
+  cursor: pointer; /* Cursor en forma de mano */
+}
+
+.form-check-input:hover {
+  box-shadow: 0 0 5px rgba(245, 1, 1, 0.5); /* Efecto de sombra en hover */
+}
+
+/* Etiqueta de los checkboxes */
+.form-check-label {
+  cursor: pointer; /* Cursor en forma de mano */
+  color: #11577c; /* Texto más oscuro */
+  font-weight: bold; /* Negritas */
+}
+
+.form-check-label:hover {
+  text-decoration: underline; /* Subrayado al pasar el mouse */
+  color: #11577c; /* Texto más oscuro */
+}
+
+
+
+/* Input de tipo time */
+.form-control {
+  color: #10446b; /* Texto azul oscuro */
+  border: 1px solid #10446b; /* Borde azul oscuro */
+  border-radius: 5px; /* Bordes redondeados */
+  text-align: center; /* Centrar el texto */
+}
+
+.form-control:focus {
+  border-color: #11577c; /* Borde azul más oscuro en foco */
+  box-shadow: 0 0 5px rgba(17, 87, 124, 0.5); /* Sombra azul */
+  outline: none; /* Sin borde adicional */
+}
+
+
+/******************************************************************************************
+/* Estilo para la tabla de comprobantes */
+.table-pedidos {
+  font-size: 9px; /* Reduce el tamaño de la fuente */
+  width: 100%;
+}
+
+.table-pedidos th, 
+.table-pedidos td {
+  padding: 3px;
+  text-align: center;
+  white-space: nowrap; /* Evita que los textos largos se dividan en varias líneas */
+}
+
+.table-pedidos th {
+  background-color: #11577c;
+  color: white;
+}
+
+.table-pedidos tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table-pedidos tbody tr:hover {
+  background-color: #e0e0e0;
+}
+
+/* Archivo de estilos (styles.css o el archivo del componente) */
+.columna-calculada {
+  background-color: #2c3e50; /* Color de fondo */
+  font-weight: bold; /* Texto en negrita */
+  color: #f1f2f3; /* Color del texto */
+  border: 1px solid #09b93e; /* Borde */
+}
+
+
+.sticky-div {
+  position: sticky;
+  top: 20px; /* o el espacio que quieras desde la parte superior */
+  z-index: 10; /* para que quede arriba de otros elementos si es necesario */
+}
+
+

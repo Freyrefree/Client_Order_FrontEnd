@@ -1,0 +1,83 @@
+
+<div class="card">
+  <div class="card-header custom-card"><h3>Filtros de búsqueda</h3></div>
+  <div class="card-body">
+    <form [formGroup]="form" (ngSubmit)="buscarDatos()">
+      <div class="form-row row mb-3">    
+        <!-- Select de fecha -->
+        <div class="form-group col-3">
+          <label for="fechaTipo">Filtrar por fecha</label>
+          <select class="form-control" id="fechaTipo" formControlName="fechaTipo">
+            <option *ngFor="let fecha of tiposFecha; let i = index" [value]="fecha.id">{{ fecha.nombre }}</option>
+          </select>
+        </div>
+
+        <!-- Fecha inicio -->
+        <div class="form-group col-3">
+          <label for="fechaInicio">Fecha inicio</label>
+          <input type="date" class="form-control" id="fechaInicio" formControlName="fechaInicio" [disabled]="deshabilitarFechas">
+          <small class="text-danger" *ngIf="form.errors?.['rangoInvalido']">
+            La fecha de inicio no puede ser mayor que la fecha de fin.
+          </small>          
+        </div>
+
+        <!-- Fecha fin -->
+        <div class="form-group col-3">
+          <label for="fechaFin">Fecha fin</label>
+          <input type="date" class="form-control" id="fechaFin" formControlName="fechaFin" [disabled]="deshabilitarFechas">
+        </div>
+
+    
+        <!-- Región -->
+        <div class="form-group col-3">
+          <label for="region">Región</label>
+          <input list="regionList" class="form-control" id="region" placeholder="Ingresa la región" formControlName="region">
+          <datalist id="regionList">
+            <option *ngFor="let region of regiones" [value]="region.nombre"></option>
+          </datalist>
+        </div>
+      </div>
+    
+      <div class="form-row row mb-3">
+        <!-- Tipo de orden -->
+        <div class="form-group col-3">
+          <label for="tipoOrden">Tipo de orden de compra</label>
+          <input list="tiposordenList" class="form-control" id="tipoOrden" placeholder="Ingresa el tipo de orden" formControlName="tipoOrden">
+          <datalist id="tiposordenList">
+            <option *ngFor="let orden of tiposOrden" [value]="orden.nombre"></option>
+          </datalist>
+        </div>
+    
+        <!-- Estatus -->
+        <div class="form-group col-3">
+          <label for="estatus">Estatus</label>
+          <select class="form-control" id="estatus" formControlName="estatus">
+            <option *ngFor="let estatus of tiposEstatus" [value]="estatus.id">{{ estatus.nombre }}</option>
+          </select>
+        </div>
+    
+        <!-- Orden de compra -->
+        <div class="form-group col-3">
+          <label for="ordenCompra">Orden de compra</label>
+          <input type="text" class="form-control" id="ordenCompra" formControlName="ordenCompra" placeholder="Ingresa orden de compra">
+        </div>
+      </div>
+      
+
+      <!-- Botón Submit -->
+      <div class="text-end mt-3">
+        <button type="button" class="btn btn-success px-4" (click)="exportarAExcel()">
+          <i class="bi bi-file-earmark-excel me-2"></i>
+          Excel
+        </button>
+        <button type="submit" class="btn btn-primary px-4">
+          <i class="bi bi-search me-2"></i>
+          Buscar
+        </button>
+      </div>
+
+      
+    </form>
+  </div>
+</div>
+

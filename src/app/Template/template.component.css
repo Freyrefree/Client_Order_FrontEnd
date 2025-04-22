@@ -1,0 +1,47 @@
+/* Estilo para el sidebar */
+.custom-sidebar {
+    width: 250px; /* Ancho completo del sidebar */
+    background-color: #10446b; /* Fondo azul */
+    color: #cfdae2; /* Texto claro */
+    transition: transform 0.4s ease-in-out; /* Transición suave */
+    position: fixed; /* Fija el sidebar en su lugar */
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1040; /* Asegura que esté sobre el contenido */
+  }
+  
+  .custom-sidebar.collapsed {
+    transform: translateX(-100%); /* Oculta el sidebar desplazándolo fuera de la vista */
+  }
+  
+  /* Enlaces del menú */
+  .custom-sidebar .nav-link {
+    color: #cfdae2;
+    transition: all 0.3s ease;
+  }
+  
+  .custom-sidebar .nav-link:hover {
+    background-color: #11577c;
+    color: #ffffff;
+  }
+  
+  .custom-sidebar .nav-link.active {
+    background-color: #a4b5c4;
+    color: #10446b;
+    font-weight: bold;
+  }
+  
+  /* Contenido principal */
+  .content {
+    margin-left: 250px; /* Margen igual al ancho del sidebar */
+    transition: margin-left 0.4s ease-in-out; /* Transición suave para el margen */
+  }
+  
+  .content.full-width {
+    margin-left: 0; /* Sin margen cuando el sidebar está colapsado */
+  }
+
+
+  
+  

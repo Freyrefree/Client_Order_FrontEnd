@@ -1,0 +1,70 @@
+/* Botón para activar o desactivar */
+.toggle-btn {
+    position: relative;
+    width: 30px;  
+    height: 15px; 
+    border-radius: 7.5px; 
+    border: none;
+    background-color: #ccc;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+    padding: 0;
+    
+    &.active {
+      background-color: #4CAF50;
+      
+      .toggle-circle {
+        left: calc(100% - 13px); 
+      }
+    }
+  }
+  
+  .toggle-circle {
+    position: absolute;
+    top: 1px;  
+    left: 1px;   
+    width: 13px; 
+    height: 13px; 
+    border-radius: 50%;
+    background-color: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2); 
+  }
+
+
+
+/* ***************** Tarjetas ************** */
+.custom-card {
+    background-color: #10446b; /* Fondo azul oscuro */
+    color: #cfdae2; /* Texto claro */
+    font-weight: bold; /* Negritas */
+    font-size: 1.25rem; /* Tamaño de texto más grande */
+    border-radius: 5px; /* Bordes redondeados */
+  }
+
+/******************************** tabla Usuarios **********************/
+.table-usuarios {
+font-size: 12px; /* Reduce el tamaño de la fuente */
+width: 100%;
+}
+
+.table-usuarios th, 
+.table-usuarios td {
+padding: 3px;
+text-align: center;
+white-space: nowrap; /* Evita que los textos largos se dividan en varias líneas */
+}
+
+.table-usuarios th {
+background-color: #11577c;
+color: white;
+}
+
+.table-usuarios tbody tr:nth-child(even) {
+background-color: #f2f2f2;
+}
+
+.table-usuarios tbody tr:hover {
+background-color: #e0e0e0;
+}
