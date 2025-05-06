@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, catchError, lastValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode'; // Importa jwtDecode para decodificar el token
+import { API_URLS } from 'src/app/Config/api-urls'; // Asegúrate de que la ruta sea correcta
 
 // **************  Interfcaes **********
 import { ApiResponseUsuarios, ApiResponseUsuariosData, Empleado, RespuestaUsuario, Usuarios } from 'src/app/Interfaces/Data';
@@ -12,21 +13,6 @@ import { ApiResponseUsuarios, ApiResponseUsuariosData, Empleado, RespuestaUsuari
 })
 export class UserService {
 
-  private urlLogin = "http://192.168.1.21:9002/login";
-  private apiUrlEmpleado = 'https://g-mc.mx:8105/api/EmpleadosByClaveNomina';
-
-  //******* PRD *****
-  private apiUrl = 'http://192.168.1.21:9004/api/ModulosPorUsuario';
-  private apiUrlUsuarios = 'http://192.168.1.21:9004/api/Usuarios';
-  private apiUrlEstatus = 'http://192.168.1.21:9004/api/CambiarEstatusUsuario';
-  private apiUrlPerfil = 'http://192.168.1.21:9004/api/CambiarPerfilUsuario';
-  
-
-  //***** DEV ******
-  // private apiUrl = 'https://localhost:44373/api/ModulosPorUsuario';
-  // private apiUrlUsuarios = 'https://localhost:44373/api/Usuarios';
-  // private apiUrlEstatus = 'https://localhost:44373/api/CambiarEstatusUsuario';
-  // private apiUrlPerfil = 'https://localhost:44373/api/CambiarPerfilUsuario';
 
 
 
@@ -124,7 +110,7 @@ export class UserService {
     localStorage.removeItem('datosEmpleado');
     this.claveEmpledadoSource.next('');
     this.datosEmpleadoSource.next(null);
-    window.location.href = this.urlLogin // Redirección a otro sistema
+    window.location.href = API_URLS.URL_LOGIN // Redirección a otro sistema
 
 
   }
@@ -168,7 +154,7 @@ export class UserService {
       formData.append('claveEmpleado', claveEmpleado);
 
       // Realizar la solicitud POST con FormData
-      const response = await lastValueFrom(this.http.post<ApiResponseUsuarios>(this.apiUrl, formData));
+      const response = await lastValueFrom(this.http.post<ApiResponseUsuarios>(API_URLS.API_URL_MODULOS_POR_USUARIO, formData));
       return response;
     } catch (error) {
       console.error('Error al obtener los módulos por usuario:', error);
@@ -180,7 +166,7 @@ export class UserService {
     const formData = new FormData();
     formData.append('claveEmpleado', claveEmpleado);
 
-    this.http.post<Empleado[]>(this.apiUrlEmpleado, formData)
+    this.http.post<Empleado[]>(API_URLS.API_URL_EMPLEADO, formData)
       .pipe(
         catchError((error) => {
           console.error('Error obteniendo datos del empleado:', error);
@@ -209,7 +195,7 @@ export class UserService {
       }
 
       // Realizamos la solicitud GET
-      const respuesta = await this.http.get<ApiResponseUsuariosData>(this.apiUrlUsuarios).toPromise();
+      const respuesta = await this.http.get<ApiResponseUsuariosData>(API_URLS.API_URL_USUARIOS).toPromise();
 
       // Verificamos si la respuesta y los datos son válidos
       if (respuesta && respuesta.detalle.estatus && respuesta.detalle.data) {
@@ -235,7 +221,7 @@ export class UserService {
       formData.append('idUsuario', id.toString());
   
       // Realizamos la solicitud POST
-      const respuesta = await this.http.post<RespuestaUsuario>(this.apiUrlEstatus, formData).toPromise();
+      const respuesta = await this.http.post<RespuestaUsuario>(API_URLS.API_URL_CAMBIAR_ESTATUS, formData).toPromise();
       
   
       // Verificar si la respuesta es válida
@@ -265,7 +251,7 @@ export class UserService {
 
   
       // Realizamos la solicitud POST
-      const respuesta = await this.http.post<RespuestaUsuario>(this.apiUrlPerfil, formData).toPromise();
+      const respuesta = await this.http.post<RespuestaUsuario>(API_URLS.API_URL_CAMBIAR_PERFIL, formData).toPromise();
       
   
       // Verificar si la respuesta es válida

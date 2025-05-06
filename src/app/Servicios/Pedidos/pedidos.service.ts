@@ -1,23 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { API_URLS } from 'src/app/Config/api-urls';
 import { RespuestaPedidos, Pedido, PedidoDetalle, RespuestaPedidosDetalleAPI, FiltrosDeConsultaPedidos, DatosOrdenCompra, RespuestaPedidosReporte } from 'src/app/Interfaces/Data';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PedidosService {
-
-  // private apiPedidos = 'https://localhost:44373/api/PedidosDelMes'; 
-  // private apiDetallePedidoPorID = 'https://localhost:44373/api/DetallePedidoPorIdPedido'; 
-  // private apiPedidosPorFiltro = 'https://localhost:44373/api/ConsultaPorFiltros'; 
-  // private apiPedidosPorFiltroyDetalle = 'https://localhost:44373/api/ConsultaPorFiltrosyDetalle'; 
-
-  private apiPedidos = 'http://192.168.1.21:9004/api/PedidosDelMes'; 
-  private apiDetallePedidoPorID = 'http://192.168.1.21:9004/api/DetallePedidoPorIdPedido'; 
-  private apiPedidosPorFiltro = 'http://192.168.1.21:9004/api/ConsultaPorFiltros'; 
-  private apiPedidosPorFiltroyDetalle = 'http://192.168.1.21:9004/api/ConsultaPorFiltrosyDetalle';
-  
-
 
   constructor(private http: HttpClient) {}
 
@@ -29,7 +18,7 @@ export class PedidosService {
       }
 
       // Realizamos la solicitud GET
-      const respuesta = await this.http.get<RespuestaPedidos>(this.apiPedidos).toPromise();
+      const respuesta = await this.http.get<RespuestaPedidos>(API_URLS.PEDIDOS_DEL_MES).toPromise();
 
       // Verificamos si la respuesta y los datos son válidos
       if (respuesta && respuesta.detalle.estatus && respuesta.detalle.data) {
@@ -55,7 +44,7 @@ export class PedidosService {
       formData.append('idPedido', idPedido.toString());
 
       // Realizamos la solicitud POST
-      const respuesta = await this.http.post<RespuestaPedidosDetalleAPI>(this.apiDetallePedidoPorID, formData).toPromise();
+      const respuesta = await this.http.post<RespuestaPedidosDetalleAPI>(API_URLS.DETALLE_PEDIDO_POR_ID, formData).toPromise();
 
       // Verificamos si la respuesta y los datos son válidos
       if (respuesta && respuesta.detalle.estatus && respuesta.detalle.data) {
@@ -113,8 +102,8 @@ export class PedidosService {
       const formData = this.construirFormData(filtros);
   
       const respuesta = await this.http
-        .post<RespuestaPedidos>(this.apiPedidosPorFiltro, formData)
-        .toPromise();
+      .post<RespuestaPedidos>(API_URLS.PEDIDOS_POR_FILTRO, formData)
+      .toPromise();
   
       if (respuesta && respuesta.detalle.estatus && respuesta.detalle.data) {
         return respuesta.detalle.data;
@@ -137,8 +126,8 @@ export class PedidosService {
       const formData = this.construirFormData(filtros);
   
       const respuesta = await this.http
-        .post<RespuestaPedidosReporte>(this.apiPedidosPorFiltroyDetalle, formData)
-        .toPromise();
+      .post<RespuestaPedidosReporte>(API_URLS.PEDIDOS_POR_FILTRO_Y_DETALLE, formData)
+      .toPromise();
   
       if (respuesta && respuesta.detalle.estatus && respuesta.detalle.data) {
         return respuesta.detalle.data;

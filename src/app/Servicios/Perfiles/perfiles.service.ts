@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { API_URLS } from 'src/app/Config/api-urls';
 
 
 
@@ -12,10 +13,8 @@ import { ApiResponsePerfilesData, Perfiles } from 'src/app/Interfaces/Data';
 })
 export class PerfilesService {
 
-  // private apiPerfiles = 'https://localhost:44373/api/Perfiles'; 
 
   
-  private apiPerfiles = 'http://192.168.1.21:9004/api/Perfiles';
 
 
   constructor(private http: HttpClient) {}
@@ -29,7 +28,7 @@ export class PerfilesService {
         }
   
         // Realizamos la solicitud GET
-        const respuesta = await this.http.get<ApiResponsePerfilesData>(this.apiPerfiles).toPromise();
+        const respuesta = await this.http.get<ApiResponsePerfilesData>(API_URLS.PERFILES).toPromise();
   
         // Verificamos si la respuesta y los datos son válidos
         if (respuesta && respuesta.detalle.estatus && respuesta.detalle.data) {

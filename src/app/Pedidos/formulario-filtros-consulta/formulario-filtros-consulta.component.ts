@@ -27,6 +27,7 @@ export class FormularioFiltrosConsultaComponent implements OnInit {
   fechaActual: Date = new Date();
   fechaInicioMes: Date = new Date(this.fechaActual.getFullYear(), this.fechaActual.getMonth(), 1);
   fechaFinMes: Date = new Date(this.fechaActual.getFullYear(), this.fechaActual.getMonth() + 1, 0);
+  buscando: boolean = false;
   
 
 
@@ -160,7 +161,28 @@ export class FormularioFiltrosConsultaComponent implements OnInit {
   }
 
 
+  // buscarDatos() {
+  //   const filtros: FiltrosDeConsultaPedidos = {
+  //     tipoFecha: this.form.value.fechaTipo,
+  //     fechaInicio: this.form.value.fechaInicio,
+  //     fechaFin: this.form.value.fechaFin,
+  //     region: this.form.value.region,
+  //     tipoOrdenCompra: this.form.value.tipoOrden,
+  //     estatus: this.form.value.estatus,        
+  //     ordenCompra: this.form.value.ordenCompra
+  //   };
+  
+  //   this.pedidoService.PedidosPorFiltros(filtros).then(pedidos => {
+  //     console.log('Pedidos recibidos:', pedidos);
+  //     this.pedidos = pedidos;
+  //     this.pedidosEncontrados.emit(pedidos); // ✅ Emitimos al padre
+  //   }).catch(error => {
+  //     console.error('Error al buscar pedidos:', error);
+  //   });
+  // }
   buscarDatos() {
+    this.buscando = true; // Cambiamos el estado a "buscando"
+    
     const filtros: FiltrosDeConsultaPedidos = {
       tipoFecha: this.form.value.fechaTipo,
       fechaInicio: this.form.value.fechaInicio,
@@ -177,267 +199,15 @@ export class FormularioFiltrosConsultaComponent implements OnInit {
       this.pedidosEncontrados.emit(pedidos); // ✅ Emitimos al padre
     }).catch(error => {
       console.error('Error al buscar pedidos:', error);
+    }).finally(() => {
+      this.buscando = false; // Cambiamos el estado a "no buscando" al finalizar
     });
   }
 
 
 
 
-
   //********************* Excel **************
-
-
-
-
-
-  // exportarAExcel() {
-  //   const filtros: FiltrosDeConsultaPedidos = {
-  //     tipoFecha: this.form.value.fechaTipo,
-  //     fechaInicio: this.form.value.fechaInicio,
-  //     fechaFin: this.form.value.fechaFin,
-  //     region: this.form.value.region,
-  //     tipoOrdenCompra: this.form.value.tipoOrden,
-  //     estatus: this.form.value.estatus,
-  //     ordenCompra: this.form.value.ordenCompra
-  //   };
-
-  //   this.pedidoService.PedidosPorFiltrosyDetalle(filtros).then(pedidos => {
-  //     this.pedidosReporte = pedidos;
-
-  //     if (!this.pedidosReporte || this.pedidosReporte.length === 0) {
-  //       console.warn('No hay pedidos para exportar');
-  //       return;
-  //     }
-
-  //     const data: any[][] = [];
-
-  //     // Encabezados combinados
-  //     const headerCompleto = [
-  //       // Cabecera de pedido
-  //       'Región', 'Orden de Compra', 'Tipo de Orden', 'Fecha de Orden', 'Fecha de Entrega',
-  //       'Hora de Entrega', 'Elaborado Por', 'Total Global',
-  //       // Cabecera de partidas
-  //       'Clave ó SKU', 'Código de Barras', 'Descripción', 'Empaque',
-  //       'Cantidad', 'Total Cajas', 'Total Costo'
-  //     ];
-
-  //     data.push(headerCompleto);
-
-  //     for (let i = 0; i < this.pedidosReporte.length; i++) {
-  //       const pedido = this.pedidosReporte[i];
-        
-  //       // Verificar si hay partidas para este pedido
-  //       const tienePartidas = pedido.partidas && pedido.partidas.length > 0;
-
-  //       if (tienePartidas) {
-  //         // Si hay partidas, mostramos la primera partida en la misma fila del pedido
-  //         const primeraPartida = pedido.partidas[0];
-          
-  //         const filaCompleta = [
-  //           // Datos del pedido
-  //           pedido.region,
-  //           pedido.ordenCompra,
-  //           pedido.tipoOrdenCompra,
-  //           pedido.fechaOrden,
-  //           pedido.fechaEntrega,
-  //           pedido.horaEntrega,
-  //           pedido.elaboradoPor,
-  //           pedido.totalGlobal,
-  //           // Datos de la primera partida
-  //           primeraPartida.clave,
-  //           primeraPartida.codigoBarras,
-  //           primeraPartida.descripcion,
-  //           primeraPartida.empaque,
-  //           primeraPartida.cantidad,
-  //           primeraPartida.totalCajas,
-  //           primeraPartida.totalCosto
-  //         ];
-          
-  //         data.push(filaCompleta);
-
-  //         // Agregamos las partidas restantes (si existen)
-  //         for (let j = 1; j < pedido.partidas.length; j++) {
-  //           const partida = pedido.partidas[j];
-  //           const filaPartida = [
-  //             // Datos de cabecera en blanco
-  //             '', '', '', '', '', '', '', '',
-  //             // Datos de la partida
-  //             partida.clave,
-  //             partida.codigoBarras,
-  //             partida.descripcion,
-  //             partida.empaque,
-  //             partida.cantidad,
-  //             partida.totalCajas,
-  //             partida.totalCosto
-  //           ];
-  //           data.push(filaPartida);
-  //         }
-  //       } else {
-  //         // Si no hay partidas, mostramos solo los datos del pedido
-  //         const filaPedido = [
-  //           pedido.region,
-  //           pedido.ordenCompra,
-  //           pedido.tipoOrdenCompra,
-  //           pedido.fechaOrden,
-  //           pedido.fechaEntrega,
-  //           pedido.horaEntrega,
-  //           pedido.elaboradoPor,
-  //           pedido.totalGlobal,
-  //           // Campos de partida vacíos
-  //           '', '', '', '', '', '', ''
-  //         ];
-  //         data.push(filaPedido);
-  //       }
-  //     }
-
-  //     const worksheet: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(data);
-
-  //     // Estilos
-  //     const styleHeaderPedido = {
-  //       fill: { fgColor: { rgb: "10446B" } },
-  //       font: { color: { rgb: "FFFFFF" }, bold: true },
-  //       alignment: { horizontal: "center", vertical: "center" }
-  //     };
-
-  //     const styleHeaderPartida = {
-  //       fill: { fgColor: { rgb: "AFDA6E" } },
-  //       font: { color: { rgb: "000000" }, bold: true },
-  //       alignment: { horizontal: "center", vertical: "center" }
-  //     };
-
-  //     const styleSeparator = {
-  //       border: {
-  //         bottom: { style: "thick", color: { rgb: "000000" } } // Solo borde inferior
-  //       }
-  //     };
-      
-
-  //     // Aplicar estilos
-  //     const ref = XLSX.utils.decode_range(worksheet['!ref']!);
-      
-  //     // Estilo para encabezados principales
-  //     for (let C = 0; C < 8; ++C) {
-  //       const cell_ref = XLSX.utils.encode_cell({c: C, r: 0});
-  //       if (worksheet[cell_ref]) {
-  //         worksheet[cell_ref].s = styleHeaderPedido;
-  //       }
-  //     }
-      
-  //     // Estilo para encabezados de partidas
-  //     for (let C = 8; C < 15; ++C) {
-  //       const cell_ref = XLSX.utils.encode_cell({c: C, r: 0});
-  //       if (worksheet[cell_ref]) {
-  //         worksheet[cell_ref].s = styleHeaderPartida;
-  //       }
-  //     }
-
-  //     // Aplicar formatos y estilos a los datos
-  //     let currentRow = 1; // Empezamos después del encabezado
-      
-  //     for (let i = 0; i < this.pedidosReporte.length; i++) {
-  //       const pedido = this.pedidosReporte[i];
-  //       const tienePartidas = pedido.partidas && pedido.partidas.length > 0;
-
-  //       // Formato moneda para Total Global
-  //       const cellTotalGlobal = XLSX.utils.encode_cell({c: 7, r: currentRow});
-  //       if (worksheet[cellTotalGlobal]) {
-  //         worksheet[cellTotalGlobal].z = '$#,##0.00';
-  //       }
-
-  //       if (tienePartidas) {
-  //         const cellTotalCosto = XLSX.utils.encode_cell({c: 11, r: currentRow});
-  //         if (worksheet[cellTotalCosto]) {
-  //           // Aplicar formato de número con comas para miles y dos decimales
-  //           worksheet[cellTotalCosto].z = '#,##0.00'; 
-            
-  //           // Asegúrate de que el valor en la celda sea numérico
-  //           worksheet[cellTotalCosto].v = parseFloat(worksheet[cellTotalCosto].v); 
-  //         }
-  //       }
-
-  //       if (tienePartidas) {
-  //         const cellTotalCosto = XLSX.utils.encode_cell({c: 12, r: currentRow});
-  //         if (worksheet[cellTotalCosto]) {
-  //           // Aplicar formato de número con comas para miles y dos decimales
-  //           worksheet[cellTotalCosto].z = '#,##0.00'; 
-            
-  //           // Asegúrate de que el valor en la celda sea numérico
-  //           worksheet[cellTotalCosto].v = parseFloat(worksheet[cellTotalCosto].v); 
-  //         }
-  //       }
-
-  //       if (tienePartidas) {
-  //         const cellTotalCosto = XLSX.utils.encode_cell({c: 13, r: currentRow});
-  //         if (worksheet[cellTotalCosto]) {
-  //           // Aplicar formato de número con comas para miles y dos decimales
-  //           worksheet[cellTotalCosto].z = '#,##0.00'; 
-            
-  //           // Asegúrate de que el valor en la celda sea numérico
-  //           worksheet[cellTotalCosto].v = parseFloat(worksheet[cellTotalCosto].v); 
-  //         }
-  //       }
-        
-        
-
-  //       // Si tiene partidas, aplicar formato a Total Costo de la primera partida
-  //       if (tienePartidas) {
-  //         const cellTotalCosto = XLSX.utils.encode_cell({c: 14, r: currentRow});
-  //         if (worksheet[cellTotalCosto]) {
-  //           worksheet[cellTotalCosto].z = '$#,##0.00';
-  //         }
-  //       }
-        
-  //       currentRow++;
-
-  //       // Aplicar formato a las partidas restantes
-  //       if (tienePartidas) {
-  //         for (let j = 1; j < pedido.partidas.length; j++) {
-  //           const cellTotalCosto = XLSX.utils.encode_cell({c: 14, r: currentRow});
-  //           if (worksheet[cellTotalCosto]) {
-  //             worksheet[cellTotalCosto].z = '$#,##0.00';
-  //           }
-  //           currentRow++;
-  //         }
-  //       }
-        
-  //       // Aplicar estilo de separador (excepto después del último pedido)
-  //       // Al final del bucle principal
-  //       if (i < this.pedidosReporte.length - 1) {
-  //         // Aplicamos estilo separador directamente sobre la última fila usada
-  //         const ultimaFilaIndex = currentRow - 1;
-  //         for (let C = 0; C < headerCompleto.length; ++C) {
-  //           const cell_ref = XLSX.utils.encode_cell({c: C, r: ultimaFilaIndex});
-  //           if (worksheet[cell_ref]) {
-  //             worksheet[cell_ref].s = styleSeparator;
-  //           }
-  //         }
-  //       }
-
-  //     }
-
-  //     // Ajuste automático del ancho de columnas
-  //     worksheet['!cols'] = data[0].map((_, colIndex) => {
-  //       const maxLength = data.reduce((max, row) => {
-  //         const val = row[colIndex] ? row[colIndex].toString() : '';
-  //         return Math.max(max, val.length);
-  //       }, 10);
-  //       return { wch: maxLength + 2 };
-  //     });
-
-  //     const workbook: XLSX.WorkBook = {
-  //       Sheets: { 'Pedidos': worksheet },
-  //       SheetNames: ['Pedidos']
-  //     };
-
-  //     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-
-  //     const blob: Blob = new Blob([excelBuffer], {
-  //       type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'
-  //     });
-
-  //     FileSaver.saveAs(blob, 'pedidos.xlsx');
-  //   });
-  // }
 
   exportarAExcel() {
     const filtros: FiltrosDeConsultaPedidos = {
