@@ -29,6 +29,8 @@ export class AutorizarPedidos {
   detallePedidoPartidas: PedidoDetalle[] = [];
   sumaTotalCosto: number = 0; // Variable para almacenar la suma de totalCostoCliente
   descripcionPedido: string = ''; // Variable para almacenar la descripción del pedido
+  layoutValido: boolean = false;
+
 
 
 
@@ -74,6 +76,14 @@ export class AutorizarPedidos {
 
   // ***************** Rutinas de Componente**********************************
 
+  validarLayout() {
+  this.layoutValido = this.detallePedidoPartidas.every(detalle =>
+    detalle.datosSAP?.normaEmpaque?.piezasCaja !== 0 &&
+    detalle.datosSAP?.normaEmpaque?.cajasTarima !== 0 &&
+    detalle.datosSAP?.normaEmpaque?.piezasTarima !== 0
+  );
+}
+
 
 
   obtenerPedidos(): void {
@@ -102,6 +112,7 @@ export class AutorizarPedidos {
       console.log('Detalles del pedido obtenidos:', this.detallePedidoPartidas);
       // Calcular la suma de totalCostoCliente
       this.calcularSumaTotalCosto();
+      this.validarLayout(); // ← aquí, después de asignar los datos
     } catch (error) {
       console.error('Error al obtener los detalles del pedido:', error);
       // Puedes mostrar un mensaje de error al usuario aquí

@@ -139,6 +139,8 @@ export interface PedidoDetalle {
   totalCostoCliente?: number; 
   observaciones?: string; 
   usuarioActualiza?: string;
+  
+  datosSAP: DatosSAPMaterial;
 }
 
 export interface PedidoDetalleAPI {
@@ -150,6 +152,20 @@ export interface RespuestaPedidosDetalleAPI {
   message: string;
   detalle: PedidoDetalleAPI;
 }
+
+export interface NormaEmpaque {
+  piezasCaja: number;
+  piezasTarima: number;
+  cajasTarima: number;
+}
+
+export interface DatosSAPMaterial {
+  sociedad: string;
+  claveMaterial: string;
+  nombreMaterial: string;
+  normaEmpaque: NormaEmpaque;
+}
+
 
 
 // ******************** Perfiles **********************
