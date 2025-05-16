@@ -8,6 +8,10 @@ import { Pedido } from 'src/app/Interfaces/Data';
 //************* Servicios *******************/
 import { PedidosService } from 'src/app/Servicios/Pedidos/pedidos.service';
 
+//************* Librerias *******************
+// import * as XLSX from 'xlsx'; // Librería para exportar a Excel
+import * as XLSX from 'xlsx-js-style';
+
 
 @Component({
   selector: 'app-pedidos-admin',
@@ -169,6 +173,112 @@ export class AutorizarPedidos {
       }, 3000);
     }
   }
+
+
+
+    //********************* Excel **************
+
+layoutME21N() {
+  // Validación inicial
+  if (!this.detallePedidoPartidas || this.detallePedidoPartidas.length === 0) {
+    console.warn('No hay partidas para exportar');
+    return;
+  }
+
+  // Preparar los datos
+  const data: any[] = [];
+
+  // Definir estilo para el encabezado
+  const styleHeaderPedido = {
+    fill: { fgColor: { rgb: "10446B" } },
+    font: { color: { rgb: "FFFFFF" }, bold: true },
+    alignment: { horizontal: "center", vertical: "center" },
+    border: {
+      top: { style: "thin", color: { rgb: "000000" } },
+      bottom: { style: "thin", color: { rgb: "000000" } },
+      left: { style: "thin", color: { rgb: "000000" } },
+      right: { style: "thin", color: { rgb: "000000" } }
+    }
+  };
+
+  // Crear fila de encabezado con estilo
+  const headerRow = [
+    { v: '', t: 's', s: styleHeaderPedido }, // A
+    { v: '', t: 's', s: styleHeaderPedido }, // B
+    { v: '', t: 's', s: styleHeaderPedido }, // C
+    { v: 'Clave Material SAP 2000', t: 's', s: styleHeaderPedido }, // D
+    { v: '', t: 's', s: styleHeaderPedido }, // E
+    { v: 'Cantidad', t: 's', s: styleHeaderPedido }, // F
+    { v: '', t: 's', s: styleHeaderPedido }, // G
+    { v: '', t: 's', s: styleHeaderPedido }, // H
+    { v: '', t: 's', s: styleHeaderPedido }, // I
+    { v: '', t: 's', s: styleHeaderPedido }, // J
+    { v: '', t: 's', s: styleHeaderPedido }, // K
+    { v: '', t: 's', s: styleHeaderPedido }, // L
+    { v: '', t: 's', s: styleHeaderPedido }, // M
+    { v: '', t: 's', s: styleHeaderPedido }, // N
+    { v: 'Centro', t: 's', s: styleHeaderPedido }, // O
+    { v: '', t: 's', s: styleHeaderPedido }  // P
+  ];
+
+  data.push(headerRow);
+
+  // Llenar los datos
+  this.detallePedidoPartidas.forEach(detalle => {
+    const row = [
+      '', // A
+      '', // B
+      '', // C
+      detalle.datosSAP?.claveMaterial || '', // D
+      '', // E
+      { v: ((detalle.empaqueCliente || 0)*(detalle.cantidadCliente || 0))/1000, t: 'n' }, // F (como número)
+      '', // G
+      '', // H
+      '', // I
+      '', // J
+      '', // K
+      '', // L
+      '', // M
+      '', // N
+      '6000', // O
+      ''  // P
+    ];
+    
+    data.push(row);
+  });
+
+  // Crear el libro de Excel
+  const wb: XLSX.WorkBook = XLSX.utils.book_new();
+  const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(data);
+
+  // Ajustar anchos de columnas
+  const colWidths = [
+    { wch: 8 }, // A
+    { wch: 8 }, // B
+    { wch: 8 }, // C
+    { wch: 20 }, // D
+    { wch: 8 }, // E
+    { wch: 12 }, // F
+    { wch: 8 }, // G
+    { wch: 8 }, // H
+    { wch: 8 }, // I
+    { wch: 8 }, // J
+    { wch: 8 }, // K
+    { wch: 8 }, // L
+    { wch: 8 }, // M
+    { wch: 8 }, // N
+    { wch: 8 }, // O
+    { wch: 8 }  // P
+  ];
+  ws['!cols'] = colWidths;
+
+  // Añadir hoja al libro
+  XLSX.utils.book_append_sheet(wb, ws, 'DetallePedido');
+
+  // Generar el archivo
+  const fecha = new Date().toISOString().slice(0, 10);
+  XLSX.writeFile(wb, `Pedido_ME21N_${fecha}.xlsx`);
+}
   
   
   
