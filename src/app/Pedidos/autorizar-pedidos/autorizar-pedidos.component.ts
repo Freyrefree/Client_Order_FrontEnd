@@ -108,7 +108,7 @@ export class AutorizarPedidos {
   async detallePedido(clavePedido: number, descripcionPedido: string, fechaEntrega:string): Promise<void> {
       // Formatear fechaEntrega para SAP (sumar un día y formato dd.mm.yyyy)
     const fecha = new Date(fechaEntrega);
-    fecha.setDate(fecha.getDate() + 1);
+    fecha.setDate(fecha.getDate() - 1);
     const dia = String(fecha.getDate()).padStart(2, '0');
     const mes = String(fecha.getMonth() + 1).padStart(2, '0');
     const anio = fecha.getFullYear();
