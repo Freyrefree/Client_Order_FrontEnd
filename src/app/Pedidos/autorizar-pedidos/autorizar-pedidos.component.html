@@ -42,7 +42,7 @@
                   <td>{{ pedido.elaboradoPor }}</td>
                   <td>{{ pedido.totalGlobal | currency }}</td>
                   <td>
-                    <button class="btn btn-info btn-sm" (click)="detallePedido(pedido.id, 'Región: ' +pedido.region+ ' - Orden de Compra: ' + pedido.ordenCompra)">
+                    <button class="btn btn-info btn-sm" (click)="detallePedido(pedido.id, 'Región: ' +pedido.region+ ' - Orden de Compra: ' + pedido.ordenCompra, pedido.fechaEntrega)">
                       <i class="bi bi-list-task"></i>
                     </button>
                     <!-- <button class="btn btn-success btn-sm" (click)="confirmarPedido(pedido.id)">
@@ -162,8 +162,8 @@
               </table>
               <br>
               <!-- Botón condicional con estilo Bootstrap e icono -->
-              <button *ngIf="layoutValido" class="btn btn-success" (click)="layoutME21N()">
-                <i class="bi bi-file-excel"></i> Layout Orden de Pedido ME21N
+              <button *ngIf="layoutValido" class="btn btn-success" (click)="layoutVA01()">
+                <i class="bi bi-file-excel"></i> Layout Orden de Pedido VA01
               </button>
 
             </div>

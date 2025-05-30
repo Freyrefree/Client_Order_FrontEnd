@@ -33,6 +33,7 @@ export class AutorizarPedidos {
   detallePedidoPartidas: PedidoDetalle[] = [];
   sumaTotalCosto: number = 0; // Variable para almacenar la suma de totalCostoCliente
   descripcionPedido: string = ''; // Variable para almacenar la descripción del pedido
+  fechaEntrega: string = ''; // Variable para almacenar la fecha de entrega del pedido
   layoutValido: boolean = false;
 
 
@@ -104,12 +105,17 @@ export class AutorizarPedidos {
   }
 
   // Método para obtener los detalles del pedido
-  async detallePedido(clavePedido: number, descripcionPedido: string): Promise<void> {
-    // console.log('Consultar detalles del pedido:', clavePedido);
+  async detallePedido(clavePedido: number, descripcionPedido: string, fechaEntrega:string): Promise<void> {
+      // Formatear fechaEntrega para SAP (sumar un día y formato dd.mm.yyyy)
+    const fecha = new Date(fechaEntrega);
+    fecha.setDate(fecha.getDate() + 1);
+    const dia = String(fecha.getDate()).padStart(2, '0');
+    const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+    const anio = fecha.getFullYear();
+    this.fechaEntrega = `${dia}.${mes}.${anio}`;
 
     // Asignar la descripción del pedido a la propiedad
-    this.descripcionPedido = descripcionPedido
-
+    this.descripcionPedido = descripcionPedido;
     try {
       // Llamar al servicio para obtener los detalles del pedido
       this.detallePedidoPartidas = await this.pedidosService.DetallePedidoPorIdPedido(clavePedido);
@@ -178,7 +184,7 @@ export class AutorizarPedidos {
 
     //********************* Excel **************
 
-layoutME21N() {
+layoutVA01() {
   // Validación inicial
   if (!this.detallePedidoPartidas || this.detallePedidoPartidas.length === 0) {
     console.warn('No hay partidas para exportar');
@@ -204,21 +210,17 @@ layoutME21N() {
   // Crear fila de encabezado con estilo
   const headerRow = [
     { v: '', t: 's', s: styleHeaderPedido }, // A
-    { v: '', t: 's', s: styleHeaderPedido }, // B
-    { v: '', t: 's', s: styleHeaderPedido }, // C
-    { v: 'Clave Material SAP 2000', t: 's', s: styleHeaderPedido }, // D
+    { v: 'Clave Material SAP 2000', t: 's', s: styleHeaderPedido }, // B
+    { v: 'Cantidad', t: 's', s: styleHeaderPedido }, // C
+    { v: 'UM', t: 's', s: styleHeaderPedido }, // D
     { v: '', t: 's', s: styleHeaderPedido }, // E
-    { v: 'Cantidad', t: 's', s: styleHeaderPedido }, // F
+    { v: 'SKU 3B', t: 's', s: styleHeaderPedido }, // F
     { v: '', t: 's', s: styleHeaderPedido }, // G
     { v: '', t: 's', s: styleHeaderPedido }, // H
     { v: '', t: 's', s: styleHeaderPedido }, // I
-    { v: '', t: 's', s: styleHeaderPedido }, // J
-    { v: '', t: 's', s: styleHeaderPedido }, // K
-    { v: '', t: 's', s: styleHeaderPedido }, // L
-    { v: '', t: 's', s: styleHeaderPedido }, // M
-    { v: '', t: 's', s: styleHeaderPedido }, // N
-    { v: 'Centro', t: 's', s: styleHeaderPedido }, // O
-    { v: '', t: 's', s: styleHeaderPedido }  // P
+    { v: 'D', t: 's', s: styleHeaderPedido }, // J
+    { v: '1° Fecha', t: 's', s: styleHeaderPedido }, // K
+    { v: 'Ce', t: 's', s: styleHeaderPedido }, // L
   ];
 
   data.push(headerRow);
@@ -227,21 +229,17 @@ layoutME21N() {
   this.detallePedidoPartidas.forEach(detalle => {
     const row = [
       '', // A
-      '', // B
-      '', // C
-      detalle.datosSAP?.claveMaterial || '', // D
+      detalle.datosSAP?.claveMaterial || '', // B
+      { v: ((detalle.empaqueCliente || 0)*(detalle.cantidadCliente || 0))/1000, t: 'n' },  // C
+      'mil', // D
       '', // E
-      { v: ((detalle.empaqueCliente || 0)*(detalle.cantidadCliente || 0))/1000, t: 'n' }, // F (como número)
+      detalle.claveMaterialCliente || '', // F
       '', // G
       '', // H
       '', // I
-      '', // J
-      '', // K
-      '', // L
-      '', // M
-      '', // N
-      '6000', // O
-      ''  // P
+      'D', // J
+      this.fechaEntrega || '', // K
+      '2000', // L
     ];
     
     data.push(row);
@@ -254,21 +252,18 @@ layoutME21N() {
   // Ajustar anchos de columnas
   const colWidths = [
     { wch: 8 }, // A
-    { wch: 8 }, // B
-    { wch: 8 }, // C
-    { wch: 20 }, // D
+    { wch: 20 }, // B
+    { wch: 20 }, // C
+    { wch: 8 }, // D
     { wch: 8 }, // E
-    { wch: 12 }, // F
+    { wch: 20 }, // F
     { wch: 8 }, // G
     { wch: 8 }, // H
     { wch: 8 }, // I
     { wch: 8 }, // J
     { wch: 8 }, // K
     { wch: 8 }, // L
-    { wch: 8 }, // M
-    { wch: 8 }, // N
-    { wch: 8 }, // O
-    { wch: 8 }  // P
+
   ];
   ws['!cols'] = colWidths;
 
